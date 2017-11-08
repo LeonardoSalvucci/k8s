@@ -1,0 +1,80 @@
+{
+  "kind": "Deployment",
+  "apiVersion": "extensions/v1beta1",
+  "metadata": {
+    "name": "test-python",
+    "namespace": "default",
+    "selfLink": "/apis/extensions/v1beta1/namespaces/default/deployments/test-python",
+    "uid": "10f247f4-c48d-11e7-830c-0800271f38eb",
+    "resourceVersion": "20493",
+    "generation": 3,
+    "creationTimestamp": "2017-11-08T13:59:41Z",
+    "labels": {
+      "app": "test-python"
+    },
+    "annotations": {
+      "deployment.kubernetes.io/revision": "2"
+    }
+  },
+  "spec": {
+    "replicas": 3,
+    "selector": {
+      "matchLabels": {
+        "app": "test-python"
+      }
+    },
+    "template": {
+      "metadata": {
+        "name": "test-python",
+        "creationTimestamp": null,
+        "labels": {
+          "app": "test-python"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "test-python",
+            "image": "lsalvucci/mypython:$GIT_COMMIT",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "imagePullPolicy": "IfNotPresent",
+            "securityContext": {
+              "privileged": false
+            }
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "securityContext": {},
+        "schedulerName": "default-scheduler"
+      }
+    },
+    "strategy": {
+      "type": "RollingUpdate",
+      "rollingUpdate": {
+        "maxUnavailable": 1,
+        "maxSurge": 1
+      }
+    }
+  },
+  "status": {
+    "observedGeneration": 3,
+    "replicas": 3,
+    "updatedReplicas": 3,
+    "readyReplicas": 3,
+    "availableReplicas": 3,
+    "conditions": [
+      {
+        "type": "Available",
+        "status": "True",
+        "lastUpdateTime": "2017-11-08T15:23:16Z",
+        "lastTransitionTime": "2017-11-08T15:23:16Z",
+        "reason": "MinimumReplicasAvailable",
+        "message": "Deployment has minimum availability."
+      }
+    ]
+  }
+}

@@ -1,5 +1,5 @@
 node {
-	docker.withServer('unix:///var/run/docker.sock') {
+	docker.withServer('tcp://127.0.0.1:2375') {
 		def app
 
 		stage('Git Pull') {

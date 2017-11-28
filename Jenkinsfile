@@ -1,30 +1,25 @@
 pipeline {
-    stage('Git Pull') {
+	agent any
+    
+	stage('Git Pull') {
         checkout scm
     }
-}
-pipeline {
-    stage('Build Image') {
-        docker.withRegistry('https://docker.io', 'd2fad48e-eb9a-405e-9e62-2cceaf1773b9') {
-            def customImage = docker.build("lsalvucci/mypython:${env.BUILD_ID}")
-            stage('Push Image') {
-                customImage.push()
-            }
-        }
-    }
-}
-pipeline {
-    stage('Update Kubernetes') {
-        agent {
-            kubernetes {
-                cloud 'kubernetes'
-                containerTemplate {
-                    name 'test-python'
-                    image 'lsalvucci/mypython:${env.BUILD_ID}'
-                    ttyEnabled true
-                }
-            }
-        }
-    }
+
+	stage('Build image') {
+		app = docker.build("localhost:5000/mypython")
+	}
+
+	stage('Test image') {
+		app.inside {
+			sh 'echo "Tests passed"'
+		}
+	}
+
+	stage('Push image') {
+		docker.withRegistry('http://localhost:5000', 'local') {
+			app.push("${env.BUILD_NUMBER}")
+			app.push("latest")
+		}
+	}
 }
 

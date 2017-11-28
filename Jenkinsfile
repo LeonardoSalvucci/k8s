@@ -2,7 +2,7 @@ node {
 	def app
 
 	stage('Get user') {
-		sh 'docker whoami'
+		sh 'whoami'
 	}    
 
 	stage('Git Pull') {

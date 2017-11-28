@@ -4,7 +4,7 @@ import socket
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write("Hello, world(v4)-despues del deploy: (%s)" % (socket.gethostname(),))
+        self.write("Hello, world: (%s)" % (socket.gethostname(),))
 
 def make_app():
     return tornado.web.Application([

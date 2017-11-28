@@ -1,8 +1,8 @@
 node {
 	def app
 
-	stage('Get user') {
-		sh 'whoami'
+	stage('set environment') {
+		sh 'usermod -a -G docker $(whoami)'
 	}    
 
 	stage('Git Pull') {

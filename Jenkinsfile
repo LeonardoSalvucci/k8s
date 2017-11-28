@@ -1,7 +1,7 @@
 node {
 	def app
 
-	stage('Get user' {
+	stage('Get user') {
 		sh 'docker whoami'
 	}    
 

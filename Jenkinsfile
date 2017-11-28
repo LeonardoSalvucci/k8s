@@ -17,7 +17,7 @@ node {
 		}
 
 		stage('Push image') {
-			docker.withRegistry('http://localhost:5000', 'local') {
+			docker.withRegistry('http://localhost:5000', 'docker-registry-local') {
 				app.push("${env.BUILD_NUMBER}")
 				app.push("latest")
 			}

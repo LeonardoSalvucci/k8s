@@ -1,6 +1,10 @@
 node {
 	def app
-    
+
+	stage('Get user' {
+		sh 'docker whoami'
+	}    
+
 	stage('Git Pull') {
         checkout scm
     }

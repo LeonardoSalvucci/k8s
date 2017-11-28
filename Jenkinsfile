@@ -1,16 +1,14 @@
 node {
 	def app
 
-	stage('set environment') {
-		sh 'usermod -a -G docker $(whoami)'
-	}    
-
 	stage('Git Pull') {
         checkout scm
     }
 
 	stage('Build image') {
-		app = docker.build("localhost:5000/mypython")
+		withServer('unix:///var/run/docker.sock') {
+			app = docker.build("localhost:5000/mypython")
+		}
 	}
 
 	stage('Test image') {

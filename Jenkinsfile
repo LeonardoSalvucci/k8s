@@ -6,7 +6,7 @@ node {
     }
 
 	stage('Build image') {
-		withServer('unix:///var/run/docker.sock') {
+		docker.withServer('unix:///var/run/docker.sock') {
 			app = docker.build("localhost:5000/mypython")
 		}
 	}
